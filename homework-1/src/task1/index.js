@@ -7,7 +7,9 @@ const reverseString = (input) => {
   return input.split("").reverse().join("");
 };
 
-readline.question("Please input a string: ", (input) => {
-  console.log("Result:", reverseString(input));
-  readline.close();
+const main = () => readline.question("", (input) => {
+  console.log(`${reverseString(input)}\n`);
+  main();
 });
+
+main();

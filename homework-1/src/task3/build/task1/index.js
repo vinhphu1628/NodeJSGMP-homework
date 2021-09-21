@@ -9,7 +9,11 @@ var reverseString = function reverseString(input) {
   return input.split("").reverse().join("");
 };
 
-readline.question("Please input a string: ", function (input) {
-  console.log("Result:", reverseString(input));
-  readline.close();
-});
+var main = function main() {
+  return readline.question("", function (input) {
+    console.log("".concat(reverseString(input), "\n"));
+    main();
+  });
+};
+
+main();
