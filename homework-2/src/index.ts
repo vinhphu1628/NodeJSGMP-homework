@@ -67,7 +67,6 @@ app.get('/user', (req, res) => {
     if (!!loginSubString) {
         if (!!limit) {
             let count = parseInt(limit.toString(), 10);
-            console.log(`yes login=${loginSubString}, yes limit=${count}`);
             result = userData.filter((user: User) => {
                 if (user.login.includes(loginSubString.toString()) && count > 0) {
                     count = count - 1;
@@ -76,7 +75,7 @@ app.get('/user', (req, res) => {
             });
             return res.json(result);
         }
-        console.log(`yes login=${loginSubString}, no limit`);
+
         result = userData.filter((user: User) => {
             if (user.login.includes(loginSubString.toString())) {
                 return user;
@@ -86,7 +85,6 @@ app.get('/user', (req, res) => {
     } else {
         if (!!limit) {
             let count = parseInt(limit.toString(), 10);
-            console.log(`no login, yes limit=${count}`);
             result = userData.filter((user: User) => {
                 if (count > 0) {
                     count -= 1;
@@ -95,7 +93,7 @@ app.get('/user', (req, res) => {
             });
             return res.json(result);
         }
-        console.log('no login, no limit');
+
         res.json(userData);
     }
 });
