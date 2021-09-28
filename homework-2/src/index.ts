@@ -19,13 +19,34 @@ const userData: User[] = [
         password: 'Vinhphu1628',
         age: 24,
         isDeleted: false
+    },
+    {
+        id: '2',
+        login: 'vinh1628',
+        password: 'Vinhphu1628',
+        age: 21,
+        isDeleted: false
+    },
+    {
+        id: '3',
+        login: 'phu1628',
+        password: 'Vinhphu1628',
+        age: 23,
+        isDeleted: false
+    },
+    {
+        id: '4',
+        login: 'vinhphu',
+        password: 'Vinhphu1628',
+        age: 26,
+        isDeleted: false
     }
 ];
 
 const userSchema = Joi
     .object()
     .keys({
-        id: Joi.number().integer().required(),
+        id: Joi.string().required(),
         login: Joi.required(),
         password: Joi.string().regex(/^[a-zA-Z0-9]{0,}$/).required(),
         age: Joi.number().integer().min(4).max(130).required(),
@@ -38,9 +59,45 @@ app.get('/', (req, res) => {
     res.send('Welcome to my homework-2!');
 });
 
-// get all users
+// get all users && auto-suggest list from limit users
 app.get('/user', (req, res) => {
-    res.json(userData);
+    const { loginSubString, limit } = req.query;
+    let result: User[] = [];
+
+    if (!!loginSubString) {
+        if (!!limit) {
+            let count = parseInt(limit.toString(), 10);
+            console.log(`yes login=${loginSubString}, yes limit=${count}`);
+            result = userData.filter((user: User) => {
+                if (user.login.includes(loginSubString.toString()) && count > 0) {
+                    count = count - 1;
+                    return user;
+                }
+            });
+            return res.json(result);
+        }
+        console.log(`yes login=${loginSubString}, no limit`);
+        result = userData.filter((user: User) => {
+            if (user.login.includes(loginSubString.toString())) {
+                return user;
+            }
+        });
+        res.json(result);
+    } else {
+        if (!!limit) {
+            let count = parseInt(limit.toString(), 10);
+            console.log(`no login, yes limit=${count}`);
+            result = userData.filter((user: User) => {
+                if (count > 0) {
+                    count -= 1;
+                    return user;
+                }
+            });
+            return res.json(result);
+        }
+        console.log('no login, no limit');
+        res.json(userData);
+    }
 });
 
 // get user by id
