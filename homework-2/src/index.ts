@@ -10,7 +10,7 @@ type User = {
     password: string,
     age: number,
     isDeleted: boolean
-  }
+}
 
 const userData: User[] = [
     {
@@ -60,12 +60,12 @@ app.get('/', (req, res) => {
 });
 
 // get all users && auto-suggest list from limit users
-app.get('/user', (req, res) => {
+app.get('/users', (req, res) => {
     const { loginSubString, limit } = req.query;
     let result: User[] = [];
 
-    if (!!loginSubString) {
-        if (!!limit) {
+    if (loginSubString) {
+        if (limit) {
             let count = parseInt(limit.toString(), 10);
             result = userData.filter((user: User) => {
                 if (user.login.includes(loginSubString.toString()) && count > 0) {
@@ -83,7 +83,7 @@ app.get('/user', (req, res) => {
         });
         res.json(result);
     } else {
-        if (!!limit) {
+        if (limit) {
             let count = parseInt(limit.toString(), 10);
             result = userData.filter((user: User) => {
                 if (count > 0) {
@@ -101,7 +101,7 @@ app.get('/user', (req, res) => {
 // get user by id
 app.get('/user/:id', (req, res) => {
     const { id } = req.params;
-    const result = userData.find((user: User) => user.id.toString() === id.toString());
+    const result = userData.find((user: User) => user.id === id);
 
     if (!result) {
         return res.send('No such user!');
@@ -115,7 +115,7 @@ app.post('/user', (req, res) => {
     const newUser: User = req.body;
     const { error, value } = userSchema.validate(newUser);
 
-    if (!!error) {
+    if (error) {
         return res.status(400).send(error.details[0].message);
     }
 
@@ -130,11 +130,11 @@ app.put('/user/:id', (req, res) => {
 
     const { error, value } = userSchema.validate(newUser);
 
-    if (!!error) {
+    if (error) {
         return res.status(400).send(error.details[0].message);
     }
 
-    const userIdx = userData.findIndex((user: User) => user.id.toString() === id.toString());
+    const userIdx = userData.findIndex((user: User) => user.id === id);
 
     if (userIdx === -1) {
         return res.send('No such user!');
@@ -147,7 +147,7 @@ app.put('/user/:id', (req, res) => {
 // delete user
 app.delete('/user/:id', (req, res) => {
     const { id } = req.params;
-    const userIdx = userData.findIndex((user: User) => user.id.toString() === id.toString());
+    const userIdx = userData.findIndex((user: User) => user.id === id);
 
     if (userIdx === -1) {
         return res.send('No such user!');
