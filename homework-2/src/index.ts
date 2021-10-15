@@ -99,7 +99,7 @@ app.get('/users', (req, res) => {
 });
 
 // get user by id
-app.get('/user/:id', (req, res) => {
+app.get('/users/:id', (req, res) => {
     const { id } = req.params;
     const result = userData.find((user: User) => user.id === id);
 
@@ -111,7 +111,7 @@ app.get('/user/:id', (req, res) => {
 });
 
 // create user
-app.post('/user', (req, res) => {
+app.post('/users', (req, res) => {
     const newUser: User = req.body;
     const { error, value } = userSchema.validate(newUser);
 
@@ -124,7 +124,7 @@ app.post('/user', (req, res) => {
 });
 
 // update user
-app.put('/user/:id', (req, res) => {
+app.put('/users/:id', (req, res) => {
     const { id } = req.params;
     const newUser: User = req.body;
 
@@ -145,7 +145,7 @@ app.put('/user/:id', (req, res) => {
 });
 
 // delete user
-app.delete('/user/:id', (req, res) => {
+app.delete('/users/:id', (req, res) => {
     const { id } = req.params;
     const userIdx = userData.findIndex((user: User) => user.id === id);
 
