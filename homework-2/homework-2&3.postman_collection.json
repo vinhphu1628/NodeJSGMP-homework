@@ -1,26 +1,10 @@
 {
 	"info": {
 		"_postman_id": "4a714707-e57f-4b17-9dff-51f37bdfa0e8",
-		"name": "homework-2",
+		"name": "homework-2 & 3",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Welcome",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000"
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "Get All Users",
 			"request": {
@@ -161,6 +145,25 @@
 					"path": [
 						"users",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Database",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/reset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"reset"
 					]
 				}
 			},
