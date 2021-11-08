@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+<<<<<<< HEAD
 import { User, UserModel, userSchema } from '../models/User';
 import { findLimitUsersWithSubstring, findAllUsersWithSubstring, findLimitUsers, findAllUsers, findUserById, createNewUser, updateUserById, deleteUserById } from '../services/userServices';
 
@@ -45,6 +46,21 @@ export const resetDatabase = async (req: Request, res: Response) => {
         throw new Error();
     }
 };
+=======
+
+import sequelize from '../config/dbConfig';
+import { User, userSchema } from '../models/User';
+import {
+    getLimitUsersWithSubstring,
+    getAllUsersWithSubstring,
+    getLimitUsers,
+    getAllUsers,
+    getUserById,
+    createUser,
+    updateUserById,
+    deleteUserById
+} from '../services/userServices';
+>>>>>>> 6cd5760 (homework-4: finish homework-4)
 
 export const getUsers = async (req: Request, res: Response) => {
     const { loginSubString, limit } = req.query;
@@ -106,7 +122,6 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    console.log('hello');
 
     try {
         const response = await findUserById(id);
@@ -135,7 +150,13 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     try {
+<<<<<<< HEAD
         await createNewUser(userData);
+=======
+        await sequelize.transaction(async (t) => {
+            await createUser(userData, t);
+        });
+>>>>>>> 6cd5760 (homework-4: finish homework-4)
         return res.send('Created user successfully!');
     } catch (error) {
         let errorMessage = 'Failed to query!';
@@ -164,7 +185,7 @@ export const updateUser = async (req: Request, res: Response) => {
             return res.send('No such user!');
         }
 
-        return res.send('Updated successfully!');
+        return res.send('Updated user successfully!');
     } catch (error) {
         let errorMessage = 'Failed to query!';
         if (error instanceof Error) {
@@ -174,16 +195,15 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 };
 
+<<<<<<< HEAD
 export const deteleUser = async (req: Request, res: Response) => {
+=======
+export const deleteUserController = async (req: Request, res: Response) => {
+>>>>>>> 6cd5760 (homework-4: finish homework-4)
     const { id } = req.params;
 
     try {
-        const response = await deleteUserById(id);
-
-        if (response[0] === 0) {
-            return res.send('No such user!');
-        }
-
+        await deleteUserById(id);
         return res.send('Deleted user successfully!');
     } catch (error) {
         let errorMessage = 'Failed to query!';

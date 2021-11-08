@@ -1,6 +1,7 @@
-import { User, UserModel } from '../models/User';
+import { Model, Op, Transaction } from 'sequelize';
 
-import { Op } from 'sequelize';
+import { User, UserModel } from '../models/User';
+import { UserGroupModel, UserGroup } from '../models/DbRelations';
 
 export const findAllUsers = async () => {
     try {
@@ -81,9 +82,9 @@ export const findUserById = async (id: string) => {
     }
 };
 
-export const createNewUser = async (userData: User) => {
+export const createNewUser = async (userData: User, t: Transaction) => {
     try {
-        const user = await UserModel.create(userData);
+        const user = await UserModel.create(userData, { transaction: t });
         return user;
     } catch (error) {
         throw new Error();
@@ -108,7 +109,7 @@ export const updateUserById = async (id: string, userData: User) => {
 
 export const deleteUserById = async (id: string) => {
     try {
-        const user = await UserModel.update(
+        await UserModel.update(
             { isDeleted: true },
             {
                 where: {
@@ -116,7 +117,15 @@ export const deleteUserById = async (id: string) => {
                 }
             },
         );
-        return user;
+        const userGroupRelations = await UserGroupModel.findAll<Model<UserGroup>>({
+            where: {
+                userId: id
+            }
+        });
+        userGroupRelations.forEach((userGroupRelation: Model<UserGroup>) => {
+            userGroupRelation?.destroy();
+        });
+        return;
     } catch (error) {
         throw new Error();
     }
