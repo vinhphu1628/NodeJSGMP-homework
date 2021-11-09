@@ -70,24 +70,24 @@ export const resetDatabaseController = async (req: Request, res: Response) => {
         // reset users_groups db
         await UserGroupModel.sync({ force: true });
         await UserGroupModel.create<Model<UserGroup>>({
-            userId: '1',
-            groupId: '3'
+            UserId: '1',
+            GroupId: '3'
         });
         await UserGroupModel.create<Model<UserGroup>>({
-            userId: '2',
-            groupId: '1'
+            UserId: '2',
+            GroupId: '1'
         });
         await UserGroupModel.create<Model<UserGroup>>({
-            userId: '4',
-            groupId: '1'
+            UserId: '4',
+            GroupId: '1'
         });
         await UserGroupModel.create<Model<UserGroup>>({
-            userId: '3',
-            groupId: '2'
+            UserId: '3',
+            GroupId: '2'
         });
         await UserGroupModel.create<Model<UserGroup>>({
-            userId: '5',
-            groupId: '2'
+            UserId: '5',
+            GroupId: '2'
         });
 
         res.send('Database reset successfully!');

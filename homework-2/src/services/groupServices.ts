@@ -2,10 +2,13 @@ import { Model, Transaction } from 'sequelize';
 
 import { UserGroup, UserGroupModel } from '../models/DbRelations';
 import { Group, GroupModel } from '../models/Group';
+import { UserModel } from '../models/User';
 
 export const getAllGroups = async () => {
     try {
-        const groups = await GroupModel.findAll();
+        const groups = await GroupModel.findAll({
+            include: [UserModel]
+        });
 
         return groups;
     } catch (error) {
@@ -18,7 +21,8 @@ export const getGroupById = async (id: string) => {
         const group = await GroupModel.findOne({
             where: {
                 id
-            }
+            },
+            include: [UserModel]
         });
         return group;
     } catch (error) {
@@ -61,7 +65,7 @@ export const deleteGroupById = async (id: string) => {
         group?.destroy();
         const userGroupRelations = await UserGroupModel.findAll<Model<UserGroup>>({
             where: {
-                groupId: id
+                GroupId: id
             }
         });
         userGroupRelations.forEach((userGroupRelation: Model<UserGroup>) => {
@@ -78,12 +82,17 @@ export const addUsersToGroupById = async (groupId: string, userIds: string[], t:
         const promiseArray =  userIds.map(async (userId: string) => {
             const userGroupRelation = await UserGroupModel.findOne<Model<UserGroup>>({
                 where: {
-                    groupId,
-                    userId
+                    GroupId: groupId,
+                    UserId: userId
                 }
             });
             if (!userGroupRelation) {
-                await UserGroupModel.create<Model<UserGroup>>({ groupId, userId }, { transaction: t });
+                await UserGroupModel.create<Model<UserGroup>>(
+                    {
+                        GroupId: groupId,
+                        UserId: userId
+                    },
+                    { transaction: t });
             }
         });
 

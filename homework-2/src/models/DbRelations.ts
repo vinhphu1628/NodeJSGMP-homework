@@ -1,13 +1,13 @@
-import { DataTypes } from 'sequelize';
-
 import sequelize from '../config/dbConfig';
+import { GroupModel } from './Group';
+import { UserModel } from './User';
 
 export type UserGroup = {
-    userId: string;
-    groupId: string;
+    UserId: string;
+    GroupId: string;
 };
 
-export const UserGroupModel = sequelize.define('UserGroup', {
-    userId: { type: DataTypes.STRING, allowNull: false },
-    groupId: { type: DataTypes.STRING, allowNull: false }
-}, { tableName: 'users_groups' });
+export const UserGroupModel = sequelize.define('UserGroup', {}, { tableName: 'users_groups' });
+
+UserModel.belongsToMany(GroupModel, { through: 'UserGroup' });
+GroupModel.belongsToMany(UserModel, { through: 'UserGroup' });
