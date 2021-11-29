@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 import sequelize from '../config/dbConfig';
 import { Group } from '../models/Group';
@@ -11,20 +11,16 @@ import {
     updateGroupById
 } from '../services/groupServices';
 
-export const getAllGroups = async (req: Request, res: Response) => {
+export const getAllGroups = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const response = await findAllGroups();
         return res.json(response);
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        return res.status(400).send(errorMessage);
+        return next(error);
     }
 };
 
-export const getGroupById = async (req: Request, res: Response) => {
+export const getGroupById = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     try {
@@ -35,15 +31,11 @@ export const getGroupById = async (req: Request, res: Response) => {
 
         return res.json(response);
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        return res.status(400).send(errorMessage);
+        return next(error);
     }
 };
 
-export const createGroup = async (req: Request, res: Response) => {
+export const createGroup = async (req: Request, res: Response, next: NextFunction) => {
     const groupData: Group = req.body;
 
     try {
@@ -52,15 +44,11 @@ export const createGroup = async (req: Request, res: Response) => {
         });
         return res.send('Created group successfully!');
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        return res.status(400).send(errorMessage);
+        return next(error);
     }
 };
 
-export const updateGroup = async (req: Request, res: Response) => {
+export const updateGroup = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const groupData: Group = req.body;
 
@@ -73,30 +61,22 @@ export const updateGroup = async (req: Request, res: Response) => {
 
         return res.send('Updated group successfully!');
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        return res.status(400).send(errorMessage);
+        return next(error);
     }
 };
 
-export const deleteGroup = async (req: Request, res: Response) => {
+export const deleteGroup = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     try {
         await deleteGroupById(id);
         return res.send('Deleted group successfully!');
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        return res.status(400).send(errorMessage);
+        return next(error);
     }
 };
 
-export const addUsersToGroup = async (req: Request, res: Response) => {
+export const addUsersToGroup = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const userIds: { userIds: string[] } = req.body;
 
@@ -106,10 +86,6 @@ export const addUsersToGroup = async (req: Request, res: Response) => {
         });
         return res.send('Added users to group successfully!');
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        return res.status(400).send(errorMessage);
+        return next(error);
     }
 };
