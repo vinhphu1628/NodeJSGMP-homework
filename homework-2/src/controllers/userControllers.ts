@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { User, UserModel, userSchema } from '../models/User';
-import { getLimitUsersWithSubstring, getAllUsersWithSubstring, getLimitUsers, getAllUsers, getUserById, createUser, updateUserById, deleteUserById } from '../services/userServices';
+import { findLimitUsersWithSubstring, findAllUsersWithSubstring, findLimitUsers, findAllUsers, findUserById, createNewUser, updateUserById, deleteUserById } from '../services/userServices';
 
-export const resetDatabaseController = async (req: Request, res: Response) => {
+export const resetDatabase = async (req: Request, res: Response) => {
     try {
         await UserModel.sync({ force: true });
         await UserModel.create({
@@ -46,14 +46,14 @@ export const resetDatabaseController = async (req: Request, res: Response) => {
     }
 };
 
-export const getUsersController = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
     const { loginSubString, limit } = req.query;
 
     if (loginSubString) {
         if (limit) {
             // find users with login and limit
             try {
-                const response = await getLimitUsersWithSubstring(loginSubString.toString(), parseInt(limit.toString(), 10));
+                const response = await findLimitUsersWithSubstring(loginSubString.toString(), parseInt(limit.toString(), 10));
                 return res.json(response);
             } catch (error) {
                 let errorMessage = 'Failed to query!';
@@ -66,7 +66,7 @@ export const getUsersController = async (req: Request, res: Response) => {
 
         // find users with login and no limit
         try {
-            const response = await getAllUsersWithSubstring(loginSubString.toString());
+            const response = await findAllUsersWithSubstring(loginSubString.toString());
             return res.json(response);
         } catch (error) {
             let errorMessage = 'Failed to query!';
@@ -79,7 +79,7 @@ export const getUsersController = async (req: Request, res: Response) => {
         if (limit) {
             // show users with limit
             try {
-                const response = await getLimitUsers(parseInt(limit.toString(), 10));
+                const response = await findLimitUsers(parseInt(limit.toString(), 10));
                 return res.json(response);
             } catch (error) {
                 let errorMessage = 'Failed to query!';
@@ -92,7 +92,7 @@ export const getUsersController = async (req: Request, res: Response) => {
 
         // show users with no limit
         try {
-            const response = await getAllUsers();
+            const response = await findAllUsers();
             return res.json(response);
         } catch (error) {
             let errorMessage = 'Failed to query!';
@@ -104,12 +104,12 @@ export const getUsersController = async (req: Request, res: Response) => {
     }
 };
 
-export const getUserByIdController = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
     const { id } = req.params;
     console.log('hello');
 
     try {
-        const response = await getUserById(id);
+        const response = await findUserById(id);
         if (!response) {
             return res.send('No such user!');
         }
@@ -124,7 +124,7 @@ export const getUserByIdController = async (req: Request, res: Response) => {
     }
 };
 
-export const createUserController = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
     const newUser: User = req.body;
     const userValidation = userSchema.validate(newUser);
     const userData = userValidation.value;
@@ -135,7 +135,7 @@ export const createUserController = async (req: Request, res: Response) => {
     }
 
     try {
-        await createUser(userData);
+        await createNewUser(userData);
         return res.send('Created user successfully!');
     } catch (error) {
         let errorMessage = 'Failed to query!';
@@ -146,7 +146,7 @@ export const createUserController = async (req: Request, res: Response) => {
     }
 };
 
-export const updateUserController = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const newUser: User = req.body;
     const userValidation = userSchema.validate(newUser);
@@ -174,7 +174,7 @@ export const updateUserController = async (req: Request, res: Response) => {
     }
 };
 
-export const deteleUserController = async (req: Request, res: Response) => {
+export const deteleUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {

@@ -2,7 +2,7 @@ import { User, UserModel } from '../models/User';
 
 import { Op } from 'sequelize';
 
-export const getAllUsers = async () => {
+export const findAllUsers = async () => {
     try {
         const users = await UserModel.findAll();
 
@@ -12,7 +12,7 @@ export const getAllUsers = async () => {
     }
 };
 
-export const getAllUsersWithSubstring = async (loginSubstring: string) => {
+export const findAllUsersWithSubstring = async (loginSubstring: string) => {
     try {
         const users = await UserModel.findAll({
             where: {
@@ -28,7 +28,7 @@ export const getAllUsersWithSubstring = async (loginSubstring: string) => {
     }
 };
 
-export const getLimitUsers = async (limit: number) => {
+export const findLimitUsers = async (limit: number) => {
     try {
         const users = await UserModel.findAll({ limit });
 
@@ -38,7 +38,7 @@ export const getLimitUsers = async (limit: number) => {
     }
 };
 
-export const getLimitUsersWithSubstring = async (loginSubstring: string, limit: number) => {
+export const findLimitUsersWithSubstring = async (loginSubstring: string, limit: number) => {
     try {
         const users = await UserModel.findAll({
             where: {
@@ -55,7 +55,7 @@ export const getLimitUsersWithSubstring = async (loginSubstring: string, limit: 
 };
 
 
-export const getAllUserByLogin = async (login: string) => {
+export const findAllUserByLogin = async (login: string) => {
     try {
         const user = await UserModel.findAll({
             where: {
@@ -68,7 +68,7 @@ export const getAllUserByLogin = async (login: string) => {
     }
 };
 
-export const getUserById = async (id: string) => {
+export const findUserById = async (id: string) => {
     try {
         const user = await UserModel.findOne({
             where: {
@@ -81,7 +81,7 @@ export const getUserById = async (id: string) => {
     }
 };
 
-export const createUser = async (userData: User) => {
+export const createNewUser = async (userData: User) => {
     try {
         const user = await UserModel.create(userData);
         return user;
