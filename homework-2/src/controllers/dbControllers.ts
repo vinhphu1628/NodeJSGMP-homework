@@ -6,7 +6,7 @@ import { UserGroup, UserGroupModel } from '../models/DbRelations';
 import { Group, GroupModel } from '../models/Group';
 import { User, UserModel } from '../models/User';
 
-export const resetDatabaseController = async (req: Request, res: Response) => {
+export const resetDatabase = async (req: Request, res: Response) => {
     try {
         // drop all table
         await sequelize.drop();

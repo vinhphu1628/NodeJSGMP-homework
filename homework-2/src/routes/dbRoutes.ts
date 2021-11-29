@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { resetDatabaseController } from '../controllers/dbControllers';
+import { resetDatabase } from '../controllers/dbControllers';
 
 const dbRouter = Router();
 
 // reset database
-dbRouter.post('/reset', resetDatabaseController);
+dbRouter.post('/reset', resetDatabase);
 
 export default dbRouter;

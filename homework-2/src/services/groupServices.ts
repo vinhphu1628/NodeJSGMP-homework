@@ -4,7 +4,7 @@ import { UserGroup, UserGroupModel } from '../models/DbRelations';
 import { Group, GroupModel } from '../models/Group';
 import { UserModel } from '../models/User';
 
-export const getAllGroups = async () => {
+export const findAllGroups = async () => {
     try {
         const groups = await GroupModel.findAll({
             include: [UserModel]
@@ -16,7 +16,7 @@ export const getAllGroups = async () => {
     }
 };
 
-export const getGroupById = async (id: string) => {
+export const findGroupById = async (id: string) => {
     try {
         const group = await GroupModel.findOne({
             where: {
@@ -30,7 +30,7 @@ export const getGroupById = async (id: string) => {
     }
 };
 
-export const createGroup = async (groupData: Group, t: Transaction) => {
+export const createNewGroup = async (groupData: Group, t: Transaction) => {
     try {
         const group = await GroupModel.create(groupData, { transaction: t });
         return group;

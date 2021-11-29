@@ -1,66 +1,17 @@
 import { Request, Response } from 'express';
-<<<<<<< HEAD
-import { User, UserModel, userSchema } from '../models/User';
-import { findLimitUsersWithSubstring, findAllUsersWithSubstring, findLimitUsers, findAllUsers, findUserById, createNewUser, updateUserById, deleteUserById } from '../services/userServices';
-
-export const resetDatabase = async (req: Request, res: Response) => {
-    try {
-        await UserModel.sync({ force: true });
-        await UserModel.create({
-            id: '1',
-            login: 'vinhphu1628',
-            password: 'Vinhphu1628',
-            age: 24,
-            isDeleted: false
-        });
-        await UserModel.create({
-            id: '2',
-            login: 'vinh1628',
-            password: 'Vinhphu1628',
-            age: 21,
-            isDeleted: false
-        });
-        await UserModel.create({
-            id: '3',
-            login: 'phu1628',
-            password: 'Vinhphu1628',
-            age: 23,
-            isDeleted: false
-        });
-        await UserModel.create({
-            id: '4',
-            login: 'vinhphu',
-            password: 'Vinhphu1628',
-            age: 26,
-            isDeleted: false
-        });
-        await UserModel.create({
-            id: '5',
-            login: 'vinhphu1628',
-            password: 'Vinhphu1628',
-            age: 24,
-            isDeleted: false
-        });
-        res.send('Database reset successfully!');
-    } catch (error) {
-        throw new Error();
-    }
-};
-=======
 
 import sequelize from '../config/dbConfig';
 import { User, userSchema } from '../models/User';
 import {
-    getLimitUsersWithSubstring,
-    getAllUsersWithSubstring,
-    getLimitUsers,
-    getAllUsers,
-    getUserById,
-    createUser,
+    findLimitUsersWithSubstring,
+    findAllUsersWithSubstring,
+    findLimitUsers,
+    findAllUsers,
+    findUserById,
+    createNewUser,
     updateUserById,
     deleteUserById
 } from '../services/userServices';
->>>>>>> 6cd5760 (homework-4: finish homework-4)
 
 export const getUsers = async (req: Request, res: Response) => {
     const { loginSubString, limit } = req.query;
@@ -150,13 +101,9 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     try {
-<<<<<<< HEAD
-        await createNewUser(userData);
-=======
         await sequelize.transaction(async (t) => {
-            await createUser(userData, t);
+            await createNewUser(userData, t);
         });
->>>>>>> 6cd5760 (homework-4: finish homework-4)
         return res.send('Created user successfully!');
     } catch (error) {
         let errorMessage = 'Failed to query!';
@@ -195,11 +142,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 };
 
-<<<<<<< HEAD
 export const deteleUser = async (req: Request, res: Response) => {
-=======
-export const deleteUserController = async (req: Request, res: Response) => {
->>>>>>> 6cd5760 (homework-4: finish homework-4)
     const { id } = req.params;
 
     try {

@@ -4,16 +4,16 @@ import sequelize from '../config/dbConfig';
 import { Group } from '../models/Group';
 import {
     addUsersToGroupById,
-    createGroup,
+    createNewGroup,
     deleteGroupById,
-    getAllGroups,
-    getGroupById,
+    findAllGroups,
+    findGroupById,
     updateGroupById
 } from '../services/groupServices';
 
-export const getAllGroupsController = async (req: Request, res: Response) => {
+export const getAllGroups = async (req: Request, res: Response) => {
     try {
-        const response = await getAllGroups();
+        const response = await findAllGroups();
         return res.json(response);
     } catch (error) {
         let errorMessage = 'Failed to query!';
@@ -24,11 +24,11 @@ export const getAllGroupsController = async (req: Request, res: Response) => {
     }
 };
 
-export const getGroupByIdController = async (req: Request, res: Response) => {
+export const getGroupById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        const response = await getGroupById(id);
+        const response = await findGroupById(id);
         if (!response) {
             return res.send('No such group!');
         }
@@ -43,12 +43,12 @@ export const getGroupByIdController = async (req: Request, res: Response) => {
     }
 };
 
-export const createGroupController = async (req: Request, res: Response) => {
+export const createGroup = async (req: Request, res: Response) => {
     const groupData: Group = req.body;
 
     try {
         await sequelize.transaction(async (t) => {
-            await createGroup(groupData, t);
+            await createNewGroup(groupData, t);
         });
         return res.send('Created group successfully!');
     } catch (error) {
@@ -60,7 +60,7 @@ export const createGroupController = async (req: Request, res: Response) => {
     }
 };
 
-export const updateGroupController = async (req: Request, res: Response) => {
+export const updateGroup = async (req: Request, res: Response) => {
     const { id } = req.params;
     const groupData: Group = req.body;
 
@@ -81,7 +81,7 @@ export const updateGroupController = async (req: Request, res: Response) => {
     }
 };
 
-export const deleteGroupController = async (req: Request, res: Response) => {
+export const deleteGroup = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -96,7 +96,7 @@ export const deleteGroupController = async (req: Request, res: Response) => {
     }
 };
 
-export const addUsersToGroupController = async (req: Request, res: Response) => {
+export const addUsersToGroup = async (req: Request, res: Response) => {
     const { id } = req.params;
     const userIds: { userIds: string[] } = req.body;
 

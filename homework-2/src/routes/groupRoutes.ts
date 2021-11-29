@@ -1,32 +1,32 @@
 import { Router } from 'express';
 
 import {
-    addUsersToGroupController,
-    createGroupController,
-    deleteGroupController,
-    getAllGroupsController,
-    getGroupByIdController,
-    updateGroupController
+    addUsersToGroup,
+    createGroup,
+    deleteGroup,
+    getAllGroups,
+    getGroupById,
+    updateGroup
 } from '../controllers/groupControllers';
 
 const groupRouter = Router();
 
 // get all groups
-groupRouter.get('/groups', getAllGroupsController);
+groupRouter.get('/groups', getAllGroups);
 
 // get group by id
-groupRouter.get('/groups/:id', getGroupByIdController);
+groupRouter.get('/groups/:id', getGroupById);
 
 // create group
-groupRouter.post('/groups', createGroupController);
+groupRouter.post('/groups', createGroup);
 
 // update group
-groupRouter.put('/groups/:id', updateGroupController);
+groupRouter.put('/groups/:id', updateGroup);
 
 // delete user
-groupRouter.delete('/groups/:id', deleteGroupController);
+groupRouter.delete('/groups/:id', deleteGroup);
 
 // add users to group
-groupRouter.post('/groups/:id/addUsers', addUsersToGroupController);
+groupRouter.post('/groups/:id/addUsers', addUsersToGroup);
 
 export default groupRouter;
