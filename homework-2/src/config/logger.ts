@@ -1,6 +1,6 @@
 import winston from 'winston';
 
-const { combine, splat, printf, colorize } = winston.format;
+const { combine, printf, colorize, timestamp } = winston.format;
 
 const myFormat = printf(({ level, message, ...metadata }) => {
     let msg = `[${level}] : ${message} `;
@@ -12,11 +12,12 @@ const myFormat = printf(({ level, message, ...metadata }) => {
 
 const logConfiguration: winston.LoggerOptions = {
     transports: [
-        new winston.transports.Console()
+        new winston.transports.Console(),
+        new winston.transports.File({ filename: 'error.log', level: 'error' })
     ],
     format: combine(
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
         colorize(),
-        splat(),
         myFormat
     )
 };
