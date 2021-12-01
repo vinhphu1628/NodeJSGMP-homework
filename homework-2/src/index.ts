@@ -25,10 +25,8 @@ app.use(groupRouter);
 app.use(errorHanldingMiddleware);
 
 process.on('uncaughtException', (error: Error) => {
-    if (error) {
-        Logger.error(`Caught exception: ${error}`);
-        process.exit(1);
-    }
+    Logger.error(`Caught exception: ${error}`);
+    process.exit(1);
 });
 
 app.listen(PORT, () => {
