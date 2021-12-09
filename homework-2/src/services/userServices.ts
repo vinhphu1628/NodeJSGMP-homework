@@ -6,7 +6,7 @@ import { GroupModel } from '../models/Group';
 
 export const findAllUsers = async () => {
     try {
-        const users = await UserModel.findAll({
+        const users = await UserModel.findAll<Model<User>>({
             include: [GroupModel]
         });
 
@@ -22,7 +22,7 @@ export const findAllUsers = async () => {
 
 export const findAllUsersWithSubstring = async (loginSubstring: string) => {
     try {
-        const users = await UserModel.findAll({
+        const users = await UserModel.findAll<Model<User>>({
             where: {
                 login: {
                     [Op.like]: `%${loginSubstring}%`
@@ -43,7 +43,7 @@ export const findAllUsersWithSubstring = async (loginSubstring: string) => {
 
 export const findLimitUsers = async (limit: number) => {
     try {
-        const users = await UserModel.findAll({
+        const users = await UserModel.findAll<Model<User>>({
             limit,
             include: [GroupModel]
         });
@@ -60,7 +60,7 @@ export const findLimitUsers = async (limit: number) => {
 
 export const findLimitUsersWithSubstring = async (loginSubstring: string, limit: number) => {
     try {
-        const users = await UserModel.findAll({
+        const users = await UserModel.findAll<Model<User>>({
             where: {
                 login: {
                     [Op.like]: `%${loginSubstring}%`
@@ -82,7 +82,7 @@ export const findLimitUsersWithSubstring = async (loginSubstring: string, limit:
 
 export const findAllUserByLogin = async (login: string) => {
     try {
-        const user = await UserModel.findAll({
+        const user = await UserModel.findAll<Model<User>>({
             where: {
                 login
             },
@@ -100,7 +100,7 @@ export const findAllUserByLogin = async (login: string) => {
 
 export const findUserById = async (id: string) => {
     try {
-        const user = await UserModel.findOne({
+        const user = await UserModel.findOne<Model<User>>({
             where: {
                 id
             },
@@ -168,6 +168,23 @@ export const deleteUserById = async (id: string) => {
             userGroupRelation?.destroy();
         });
         return;
+    } catch (error) {
+        let errorMessage = 'Failed to query!';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        throw new Error(errorMessage);
+    }
+};
+
+export const findUserByLogin = async (login: string) => {
+    try {
+        const user = await UserModel.findOne<Model<User>>({
+            where: {
+                login
+            }
+        });
+        return user;
     } catch (error) {
         let errorMessage = 'Failed to query!';
         if (error instanceof Error) {
