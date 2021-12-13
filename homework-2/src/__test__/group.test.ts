@@ -1,13 +1,13 @@
 import request from 'supertest';
 import app from '../app';
 
-const mockToBeCreatedGroup = {
+const mockGroupToBeCreated = {
     'id': '4',
     'name': 'banned',
     'permissions': []
 };
 
-const mockToBeUpdatedGroup = {
+const mockGroupToBeUpdated = {
     'id': '4',
     'name': 'bannedUsers',
     'permissions': []
@@ -21,10 +21,10 @@ describe('Group test suite', () => {
         response = await request(app).get('/groups/1');
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('No token provided.');
-        response = await request(app).post('/groups').send(mockToBeCreatedGroup);
+        response = await request(app).post('/groups').send(mockGroupToBeCreated);
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('No token provided.');
-        response = await request(app).put('/groups/4').send(mockToBeUpdatedGroup);
+        response = await request(app).put('/groups/4').send(mockGroupToBeUpdated);
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('No token provided.');
         response = await request(app).delete('/groups/3');
@@ -48,14 +48,14 @@ describe('Group test suite', () => {
         response = await request(app)
             .post('/groups')
             .set('x-access-token', 'random-token')
-            .send(mockToBeCreatedGroup);
+            .send(mockGroupToBeCreated);
         expect(response.statusCode).toBe(403);
         expect(response.body.message).toBe('Invalid Token');
 
         response = await request(app)
             .put('/groups/4')
             .set('x-access-token', 'random-token')
-            .send(mockToBeUpdatedGroup);
+            .send(mockGroupToBeUpdated);
         expect(response.statusCode).toBe(403);
         expect(response.body.message).toBe('Invalid Token');
 
@@ -71,7 +71,7 @@ describe('Group test suite', () => {
             login: 'vinhphu1628',
             password: 'Vinhphu1628'
         });
-        expect(loginResponse.body.token);
+        expect(loginResponse.body.token).toBeDefined();
 
         let response = await request(app)
             .get('/groups')
@@ -90,7 +90,7 @@ describe('Group test suite', () => {
         response = await request(app)
             .post('/groups')
             .set('x-access-token', loginResponse.body.token)
-            .send(mockToBeCreatedGroup);
+            .send(mockGroupToBeCreated);
         expect(response.statusCode === 200 || response.statusCode === 500).toBeTruthy();
         if (response.statusCode === 200) {
             expect(response.text).toBe('Created group successfully!');
@@ -102,7 +102,7 @@ describe('Group test suite', () => {
         response = await request(app)
             .put('/groups/4')
             .set('x-access-token', loginResponse.body.token)
-            .send(mockToBeUpdatedGroup);
+            .send(mockGroupToBeUpdated);
         expect(response.statusCode === 200 || response.statusCode === 500).toBeTruthy();
         if (response.statusCode === 200) {
             expect(response.text).toBe('Updated group successfully!');

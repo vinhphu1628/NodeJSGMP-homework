@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../app';
 
-const mockToBeCreatedUser = {
+const mockUserToBeCreated = {
     id: '6',
     login: 'johndoe1628',
     password: 'Johndoe1628',
@@ -9,7 +9,7 @@ const mockToBeCreatedUser = {
     isDeleted: false
 };
 
-const mockToBeUpdatedUser = {
+const mockUserToBeUpdated = {
     id: '6',
     login: 'johndoe1628',
     password: 'Johndoe1628',
@@ -25,10 +25,10 @@ describe('User test suite', () => {
         response = await request(app).get('/users/1');
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('No token provided.');
-        response = await request(app).post('/users').send(mockToBeCreatedUser);
+        response = await request(app).post('/users').send(mockUserToBeCreated);
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('No token provided.');
-        response = await request(app).put('/users/6').send(mockToBeUpdatedUser);
+        response = await request(app).put('/users/6').send(mockUserToBeUpdated);
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('No token provided.');
         response = await request(app).delete('/users/6');
@@ -52,14 +52,14 @@ describe('User test suite', () => {
         response = await request(app)
             .post('/users')
             .set('x-access-token', 'random-token')
-            .send(mockToBeCreatedUser);
+            .send(mockUserToBeCreated);
         expect(response.statusCode).toBe(403);
         expect(response.body.message).toBe('Invalid Token');
 
         response = await request(app)
             .put('/users/6')
             .set('x-access-token', 'random-token')
-            .send(mockToBeUpdatedUser);
+            .send(mockUserToBeUpdated);
         expect(response.statusCode).toBe(403);
         expect(response.body.message).toBe('Invalid Token');
 
@@ -75,7 +75,7 @@ describe('User test suite', () => {
             login: 'vinhphu1628',
             password: 'Vinhphu1628'
         });
-        expect(loginResponse.body.token);
+        expect(loginResponse.body.token).toBeDefined();
 
         let response = await request(app)
             .get('/users')
@@ -94,7 +94,7 @@ describe('User test suite', () => {
         response = await request(app)
             .post('/users')
             .set('x-access-token', loginResponse.body.token)
-            .send(mockToBeCreatedUser);
+            .send(mockUserToBeCreated);
         expect(response.statusCode === 200 || response.statusCode === 500).toBeTruthy();
         if (response.statusCode === 200) {
             expect(response.text).toBe('Created user successfully!');
@@ -106,7 +106,7 @@ describe('User test suite', () => {
         response = await request(app)
             .put('/users/6')
             .set('x-access-token', loginResponse.body.token)
-            .send(mockToBeUpdatedUser);
+            .send(mockUserToBeUpdated);
         expect(response.statusCode === 200 || response.statusCode === 500).toBeTruthy();
         if (response.statusCode === 200) {
             expect(response.text).toBe('Updated user successfully!');
