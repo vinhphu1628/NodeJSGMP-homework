@@ -4,3 +4,4 @@
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:33:32:3332"}
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:34:26:3426"}
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:35:04:354"}
+[[31merror[39m] : Caught Rejection: Error {"timestamp":"2021-12-22 11:36:55:3655"}
