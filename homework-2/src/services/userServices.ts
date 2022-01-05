@@ -1,10 +1,14 @@
-import { User, UserModel } from '../models/User';
+import { Model, Op, Transaction } from 'sequelize';
 
-import { Op } from 'sequelize';
+import { User, UserModel } from '../models/User';
+import { UserGroupModel, UserGroup } from '../models/DbRelations';
+import { GroupModel } from '../models/Group';
 
 export const findAllUsers = async () => {
     try {
-        const users = await UserModel.findAll();
+        const users = await UserModel.findAll({
+            include: [GroupModel]
+        });
 
         return users;
     } catch (error) {
@@ -19,7 +23,8 @@ export const findAllUsersWithSubstring = async (loginSubstring: string) => {
                 login: {
                     [Op.like]: `%${loginSubstring}%`
                 }
-            }
+            },
+            include: [GroupModel]
         });
 
         return users;
@@ -30,7 +35,10 @@ export const findAllUsersWithSubstring = async (loginSubstring: string) => {
 
 export const findLimitUsers = async (limit: number) => {
     try {
-        const users = await UserModel.findAll({ limit });
+        const users = await UserModel.findAll({
+            limit,
+            include: [GroupModel]
+        });
 
         return users;
     } catch (error) {
@@ -46,7 +54,8 @@ export const findLimitUsersWithSubstring = async (loginSubstring: string, limit:
                     [Op.like]: `%${loginSubstring}%`
                 }
             },
-            limit
+            limit,
+            include: [GroupModel]
         });
         return users;
     } catch (error) {
@@ -60,7 +69,8 @@ export const findAllUserByLogin = async (login: string) => {
         const user = await UserModel.findAll({
             where: {
                 login
-            }
+            },
+            include: [GroupModel]
         });
         return user;
     } catch (error) {
@@ -73,7 +83,8 @@ export const findUserById = async (id: string) => {
         const user = await UserModel.findOne({
             where: {
                 id
-            }
+            },
+            include: [GroupModel]
         });
         return user;
     } catch (error) {
@@ -81,9 +92,9 @@ export const findUserById = async (id: string) => {
     }
 };
 
-export const createNewUser = async (userData: User) => {
+export const createNewUser = async (userData: User, t: Transaction) => {
     try {
-        const user = await UserModel.create(userData);
+        const user = await UserModel.create(userData, { transaction: t });
         return user;
     } catch (error) {
         throw new Error();
@@ -108,7 +119,7 @@ export const updateUserById = async (id: string, userData: User) => {
 
 export const deleteUserById = async (id: string) => {
     try {
-        const user = await UserModel.update(
+        await UserModel.update(
             { isDeleted: true },
             {
                 where: {
@@ -116,7 +127,15 @@ export const deleteUserById = async (id: string) => {
                 }
             },
         );
-        return user;
+        const userGroupRelations = await UserGroupModel.findAll<Model<UserGroup>>({
+            where: {
+                UserId: id
+            }
+        });
+        userGroupRelations.forEach((userGroupRelation: Model<UserGroup>) => {
+            userGroupRelation?.destroy();
+        });
+        return;
     } catch (error) {
         throw new Error();
     }

@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import { DataTypes } from 'sequelize';
+
 import sequelize from '../config/dbConfig';
 
 export const UserModel = sequelize.define('User', {
