@@ -4,9 +4,6 @@
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:33:32:3332"}
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:34:26:3426"}
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:35:04:354"}
-<<<<<<< HEAD
-[[31merror[39m] : Caught Rejection: Error {"timestamp":"2021-12-22 11:36:55:3655"}
-=======
 [[31merror[39m] : Something went wrong {"method":"POST","body":{},"params":{},"timestamp":"2021-12-07 19:54:53:5453"}
 [[31merror[39m] : Something went wrong {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 19:56:19:5619"}
 [[31merror[39m] : Something went wrong {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 19:57:13:5713"}
@@ -17,4 +14,22 @@
 [[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:04:42:442"}
 [[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:06:33:633"}
 [[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:07:55:755"}
->>>>>>> c02089d (homework-6: add jwt and cors)
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:11:50:1150"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:12:43:1243"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:37:25:3725"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:38:56:3856"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:45:06:456"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:46:25:4625"}
+[[31merror[39m] : Validation error {"method":"PUT","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":25,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:48:24:4824"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:50:52:5052"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:54:09:549"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 19:55:15:5515"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 20:04:40:440"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"4","name":"banned","permissions":[]},"params":{},"timestamp":"2021-12-10 20:04:40:440"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"4","name":"banned","permissions":[]},"params":{},"timestamp":"2021-12-10 20:12:53:1253"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 20:12:53:1253"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"4","name":"banned","permissions":[]},"params":{},"timestamp":"2021-12-10 20:16:03:163"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-10 20:16:03:163"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"4","name":"banned","permissions":[]},"params":{},"timestamp":"2021-12-13 14:54:38:5438"}
+[[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-13 14:54:39:5439"}
+[[31merror[39m] : Caught Rejection: Error {"timestamp":"2021-12-22 11:36:55:3655"}
