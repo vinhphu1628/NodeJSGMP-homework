@@ -8,26 +8,25 @@ import {
     getGroupById,
     updateGroup
 } from '../controllers/groupControllers';
-import { loggerMiddleware } from '../middlewares/logger';
 
 const groupRouter = Router();
 
 // get all groups
-groupRouter.get('/groups', loggerMiddleware, getAllGroups);
+groupRouter.get('/groups', getAllGroups);
 
 // get group by id
-groupRouter.get('/groups/:id', loggerMiddleware, getGroupById);
+groupRouter.get('/groups/:id', getGroupById);
 
 // create group
-groupRouter.post('/groups', loggerMiddleware, createGroup);
+groupRouter.post('/groups', createGroup);
 
 // update group
-groupRouter.put('/groups/:id', loggerMiddleware, updateGroup);
+groupRouter.put('/groups/:id', updateGroup);
 
 // delete user
-groupRouter.delete('/groups/:id', loggerMiddleware, deleteGroup);
+groupRouter.delete('/groups/:id', deleteGroup);
 
 // add users to group
-groupRouter.post('/groups/:id/addUsers', loggerMiddleware, addUsersToGroup);
+groupRouter.post('/groups/:id/addUsers', addUsersToGroup);
 
 export default groupRouter;

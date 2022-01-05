@@ -1,29 +1,27 @@
 import { Router } from 'express';
-
 import {
     getUsers,
     getUserById,
     createUser,
     updateUser,
-    deleteUser
+    deteleUser
 } from '../controllers/userControllers';
-import { loggerMiddleware } from '../middlewares/logger';
 
 const userRouter = Router();
 
 // get all users && auto-suggest list from limit users
-userRouter.get('/users', loggerMiddleware, getUsers);
+userRouter.get('/users', getUsers);
 
 // get user by id
-userRouter.get('/users/:id', loggerMiddleware, getUserById);
+userRouter.get('/users/:id', getUserById);
 
 // create user
-userRouter.post('/users', loggerMiddleware, createUser);
+userRouter.post('/users', createUser);
 
 // update user
-userRouter.put('/users/:id', loggerMiddleware, updateUser);
+userRouter.put('/users/:id', updateUser);
 
 // delete user
-userRouter.delete('/users/:id', loggerMiddleware, deleteUser);
+userRouter.delete('/users/:id', deteleUser);
 
 export default userRouter;

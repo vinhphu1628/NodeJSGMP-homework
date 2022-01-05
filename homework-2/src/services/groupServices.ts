@@ -12,11 +12,7 @@ export const findAllGroups = async () => {
 
         return groups;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -30,11 +26,7 @@ export const findGroupById = async (id: string) => {
         });
         return group;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -43,11 +35,7 @@ export const createNewGroup = async (groupData: Group, t: Transaction) => {
         const group = await GroupModel.create(groupData, { transaction: t });
         return group;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -63,11 +51,7 @@ export const updateGroupById = async (id: string, groupData: Group) => {
         );
         return group;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -89,11 +73,7 @@ export const deleteGroupById = async (id: string) => {
         });
         return;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -119,10 +99,6 @@ export const addUsersToGroupById = async (groupId: string, userIds: string[], t:
         await Promise.all(promiseArray);
         return;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };

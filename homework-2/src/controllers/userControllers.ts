@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 import sequelize from '../config/dbConfig';
 import { User, userSchema } from '../models/User';
@@ -13,7 +13,7 @@ import {
     deleteUserById
 } from '../services/userServices';
 
-export const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getUsers = async (req: Request, res: Response) => {
     const { loginSubString, limit } = req.query;
 
     if (loginSubString) {
@@ -23,7 +23,11 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
                 const response = await findLimitUsersWithSubstring(loginSubString.toString(), parseInt(limit.toString(), 10));
                 return res.json(response);
             } catch (error) {
-                return next(error);
+                let errorMessage = 'Failed to query!';
+                if (error instanceof Error) {
+                    errorMessage = error.message;
+                }
+                return res.status(400).send(errorMessage);
             }
         }
 
@@ -32,7 +36,11 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
             const response = await findAllUsersWithSubstring(loginSubString.toString());
             return res.json(response);
         } catch (error) {
-            return next(error);
+            let errorMessage = 'Failed to query!';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            return res.status(400).send(errorMessage);
         }
     } else {
         if (limit) {
@@ -41,7 +49,11 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
                 const response = await findLimitUsers(parseInt(limit.toString(), 10));
                 return res.json(response);
             } catch (error) {
-                return next(error);
+                let errorMessage = 'Failed to query!';
+                if (error instanceof Error) {
+                    errorMessage = error.message;
+                }
+                return res.status(400).send(errorMessage);
             }
         }
 
@@ -50,12 +62,16 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
             const response = await findAllUsers();
             return res.json(response);
         } catch (error) {
-            return next(error);
+            let errorMessage = 'Failed to query!';
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            return res.status(400).send(errorMessage);
         }
     }
 };
 
-export const getUserById = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -66,11 +82,15 @@ export const getUserById = async (req: Request, res: Response, next: NextFunctio
 
         return res.json(response);
     } catch (error) {
-        return next(error);
+        let errorMessage = 'Failed to query!';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return res.status(400).send(errorMessage);
     }
 };
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (req: Request, res: Response) => {
     const newUser: User = req.body;
     const userValidation = userSchema.validate(newUser);
     const userData = userValidation.value;
@@ -86,11 +106,15 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         });
         return res.send('Created user successfully!');
     } catch (error) {
-        return next(error);
+        let errorMessage = 'Failed to query!';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return res.status(400).send(errorMessage);
     }
 };
 
-export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+export const updateUser = async (req: Request, res: Response) => {
     const { id } = req.params;
     const newUser: User = req.body;
     const userValidation = userSchema.validate(newUser);
@@ -110,17 +134,25 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
 
         return res.send('Updated user successfully!');
     } catch (error) {
-        return next(error);
+        let errorMessage = 'Failed to query!';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return res.status(400).send(errorMessage);
     }
 };
 
-export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+export const deteleUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
         await deleteUserById(id);
         return res.send('Deleted user successfully!');
     } catch (error) {
-        return next(error);
+        let errorMessage = 'Failed to query!';
+        if (error instanceof Error) {
+            errorMessage = error.message;
+        }
+        return res.status(400).send(errorMessage);
     }
 };
