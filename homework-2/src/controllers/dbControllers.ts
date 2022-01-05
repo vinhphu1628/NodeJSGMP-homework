@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Model } from 'sequelize';
 
 import sequelize from '../config/dbConfig';
@@ -6,7 +6,7 @@ import { UserGroup, UserGroupModel } from '../models/DbRelations';
 import { Group, GroupModel } from '../models/Group';
 import { User, UserModel } from '../models/User';
 
-export const resetDatabase = async (req: Request, res: Response) => {
+export const resetDatabase = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // drop all table
         await sequelize.drop();
@@ -92,6 +92,6 @@ export const resetDatabase = async (req: Request, res: Response) => {
 
         res.send('Database reset successfully!');
     } catch (error) {
-        throw new Error();
+        return next(error);
     }
 };
