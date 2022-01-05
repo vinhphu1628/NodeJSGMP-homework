@@ -12,11 +12,7 @@ export const findAllUsers = async () => {
 
         return users;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -33,11 +29,7 @@ export const findAllUsersWithSubstring = async (loginSubstring: string) => {
 
         return users;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -50,11 +42,7 @@ export const findLimitUsers = async (limit: number) => {
 
         return users;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -71,11 +59,7 @@ export const findLimitUsersWithSubstring = async (loginSubstring: string, limit:
         });
         return users;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -90,11 +74,7 @@ export const findAllUserByLogin = async (login: string) => {
         });
         return user;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -108,11 +88,7 @@ export const findUserById = async (id: string) => {
         });
         return user;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -121,11 +97,7 @@ export const createNewUser = async (userData: User, t: Transaction) => {
         const user = await UserModel.create(userData, { transaction: t });
         return user;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -141,11 +113,7 @@ export const updateUserById = async (id: string, userData: User) => {
         );
         return user;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
 
@@ -169,10 +137,6 @@ export const deleteUserById = async (id: string) => {
         });
         return;
     } catch (error) {
-        let errorMessage = 'Failed to query!';
-        if (error instanceof Error) {
-            errorMessage = error.message;
-        }
-        throw new Error(errorMessage);
+        throw new Error();
     }
 };
