@@ -4,4 +4,17 @@
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:33:32:3332"}
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:34:26:3426"}
 [[31merror[39m] : Validation error {"method":"POST","body":{"id":"6","login":"johndoe1628","password":"Johndoe1628","age":20,"isDeleted":false},"params":{},"timestamp":"2021-12-01 17:35:04:354"}
+<<<<<<< HEAD
 [[31merror[39m] : Caught Rejection: Error {"timestamp":"2021-12-22 11:36:55:3655"}
+=======
+[[31merror[39m] : Something went wrong {"method":"POST","body":{},"params":{},"timestamp":"2021-12-07 19:54:53:5453"}
+[[31merror[39m] : Something went wrong {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 19:56:19:5619"}
+[[31merror[39m] : Something went wrong {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 19:57:13:5713"}
+[[31merror[39m] : Something went wrong {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 19:59:06:596"}
+[[31merror[39m] : Something went wrong {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:00:18:018"}
+[[31merror[39m] : secretOrPrivateKey must have a value {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:01:23:123"}
+[[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:03:51:351"}
+[[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:04:42:442"}
+[[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:06:33:633"}
+[[31merror[39m] : invalid expiresIn option for string payload {"method":"POST","body":{"login":"vinhphu1628","password":"Vinhphu1628"},"params":{},"timestamp":"2021-12-07 20:07:55:755"}
+>>>>>>> c02089d (homework-6: add jwt and cors)
